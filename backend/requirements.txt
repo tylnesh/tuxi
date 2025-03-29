@@ -3,3 +3,6 @@ sounddevice
 openai-whisper
 webrtcvad
 torch
+PyYAML
+rapidfuzz
+transformers
