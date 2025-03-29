@@ -1,0 +1,5 @@
+numpy
+sounddevice
+openai-whisper
+webrtcvad
+torch
