@@ -3,6 +3,10 @@ import numpy as np
 import queue
 
 class AudioCapture:
+    
+    
+    
+    
     def __init__(self, samplerate, channels, buffer_size, audio_queue):
         self.samplerate = samplerate
         self.channels = channels

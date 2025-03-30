@@ -1,16 +1,28 @@
 # nlp/nlp_processor.py
-import subprocess
+import requests
 import yaml
 import os
+import json
+import re
 
-# Global variables to hold the current subprocess and stop flag
-current_nlp_proc = None
-stop_streaming = False
+def clean_text(text: str) -> str:
+    # Normalize whitespace
+    text = re.sub(r'\s+', ' ', text)
+    # Remove space before punctuation
+    text = re.sub(r'\s([,.!?])', r'\1', text)
+    # Ensure space after punctuation if missing
+    text = re.sub(r'([,.!?])(?=[^\s])', r'\1 ', text)
+    # Optionally, clean markdown formatting (if needed)
+    text = re.sub(r'\s+(\*\*|\*)', r'\1', text)
+    return text.strip()
 
 class NLPProcessor:
     def __init__(self, config_file="config.yaml"):
         self.config = self.load_config(config_file)
         self.model = self.config.get("nlp", {}).get("model", "gemma3:27b")
+        self.api_host = self.config.get("api", {}).get("host", "localhost")
+        self.api_port = self.config.get("api", {}).get("port", 11434)
+        
 
     def load_config(self, path: str) -> dict:
         if not os.path.exists(path):
@@ -20,32 +32,48 @@ class NLPProcessor:
         return config
 
     def query_stream(self, prompt: str, stream_callback) -> str:
-        global current_nlp_proc, stop_streaming
-        stop_streaming = False  # Reset the flag at the start
         full_response = ""
-        command = ["stdbuf", "-oL", "ollama", "run", self.model, prompt]
+        url = f"http://{self.api_host}:{self.api_port}/api/generate"
+        payload = {
+            "model": self.model,
+            "prompt": prompt
+        }
+        headers = {"Content-Type": "application/json"}
         try:
-            current_nlp_proc = subprocess.Popen(
-                command,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                bufsize=1
-            )
-            # Read output line-by-line; check the stop flag on each iteration.
-            for line in iter(current_nlp_proc.stdout.readline, ''):
-                if stop_streaming:
-                    break
-                if line:
-                    chunk = line.strip()
-                    stream_callback(chunk)
-                    full_response += chunk
-            # After breaking, terminate if not already done.
-            if current_nlp_proc.poll() is None:
-                current_nlp_proc.terminate()
-            current_nlp_proc = None
-            return full_response
+            with requests.post(url, json=payload, headers=headers, stream=True) as response:
+                response.raise_for_status()
+                for line in response.iter_lines(decode_unicode=True):
+                    if line:
+                        try:
+                            data = json.loads(line)
+                            content = data.get("response", "")
+                        except Exception as parse_error:
+                            print("Error parsing JSON chunk:", parse_error)
+                            content = line
+                        # Clean the chunk
+                        content_clean = clean_text(content)
+                        if content_clean:
+                            stream_callback(content_clean)
+                            # Optionally, add a space between chunks if needed.
+                            if full_response and not full_response[-1].isspace():
+                                full_response += " "
+                            full_response += content_clean
+                return full_response
         except Exception as e:
-            print("Error calling Ollama:", e)
-            current_nlp_proc = None
+            print("Error calling Ollama REST API:", e)
+            return ""
+
+
+    def query_stop(self):
+        url  = f"http://{self.api_host}:{self.api_port}/api/generate"
+        payload = {
+            "model": self.model,
+            "keep_alive": -1
+        }
+        headers = {"Content-Type": "application/json"}
+        
+        try:
+            requests.post(url, json=payload, headers=headers)
+        except Exception as e:
+            print("Error calling Ollama REST API:", e)
             return ""

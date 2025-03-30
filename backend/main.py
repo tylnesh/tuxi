@@ -11,12 +11,16 @@ from audio.vad import VoiceActivityDetector
 from audio.file_handler import FileHandler
 from audio.transcriber import TranscriptionEngine
 
-# Import NLP modules (including global variables)
-from nlp.nlp_processor import NLPProcessor, current_nlp_proc, stop_streaming
+# Import NLP modules
+from nlp.nlp_processor import NLPProcessor
 from nlp.intent_parser import IntentParser
 
 CONFIG_FILE = "./config/config.yaml"
 DEFAULT_CONFIG = {
+     "api": {
+        "host": "localhost",
+        "port": 11434
+    },
     "audio": {
         "sample_rate": 16000,
         "channels": 1,
@@ -71,7 +75,8 @@ intent_parser = IntentParser()
 listening_state = "idle"
 WAKE_WORD_TARGET = "hey tuxi"
 WAKE_FUZZY_THRESHOLD = 50  # For wake word detection
-STOP_FUZZY_THRESHOLD = 80  # For stop command detection
+
+stop_prompt = False  # Global flag to stop prompt processing
 
 def is_wake_word_detected(transcript: str, target: str = WAKE_WORD_TARGET, threshold: int = WAKE_FUZZY_THRESHOLD) -> bool:
     """
@@ -84,93 +89,65 @@ def is_wake_word_detected(transcript: str, target: str = WAKE_WORD_TARGET, thres
     score = fuzz.ratio(transcript_start, target)
     return score >= threshold
 
-def is_stop_command(text: str, target: str = "stop", threshold: int = STOP_FUZZY_THRESHOLD) -> bool:
-    """
-    Uses fuzzy matching to check if the text (cleaned of punctuation) is similar to 'stop'.
-    """
-    cleaned = text.lower().strip(" ,.!?")
-    score = fuzz.ratio(cleaned, target)
-    return score >= threshold
-
-def process_command(command: str):
+def process_prompt(command: str):
     """
     Processes the given command in a separate thread.
-    Streams the NLP response in realtime and outputs the final intent.
+    Streams the NLP response in real-time and outputs the final intent.
     Resets the listening state to idle when done.
     """
-    global listening_state
+    global listening_state, stop_prompt
+    stop_prompt = False  # Reset the stop flag at the start of processing
     full_response_chunks = []
+
     def stream_callback(chunk: str):
+        global stop_prompt
+        if stop_prompt:
+            raise StopIteration  # Stop streaming if the stop flag is set
         print(chunk, end="", flush=True)
         full_response_chunks.append(chunk)
-    full_response = nlp_processor.query_stream(command, stream_callback)
-    print("\n[Final LLM Response]:", full_response)
-    intent, details = intent_parser.parse_intent(full_response)
-    print("[Detected Intent]:", intent)
-    print("[Intent Details]:", details)
-    print("-" * 40)
-    listening_state = "idle"
 
-def process_transcription(transcript: str):
+    try:
+        full_response = nlp_processor.query_stream(command, stream_callback)
+        if not full_response:
+            print("\n[Error] No response received from the model.")
+            listening_state = "idle"
+            return
+        print("\n[Final LLM Response]:", full_response)
+        intent, details = intent_parser.parse_intent(full_response)
+        print("[Detected Intent]:", intent)
+        print("[Intent Details]:", details)
+        print("-" * 40)
+    except StopIteration:
+        print("\n[Info] Prompt processing stopped.")
+    finally:
+        listening_state = "idle"
+
+def process_command(transcript: str):
     """
     Called with each transcribed snippet.
-    First checks for a stop command (using fuzzy matching) and sets the stop flag,
-    then handles wake-word detection and command processing.
+    Uses fuzzy matching to detect the wake word and processes commands accordingly.
     """
-    global listening_state, current_nlp_proc, stop_streaming
+    global listening_state, stop_prompt
     transcript = transcript.strip()
-    transcript_lower = transcript.lower()
     print("\n[Transcribed]:", transcript)
-    
-    # Check first: if the transcription is (or is close to) "stop"
-    if is_stop_command(transcript):
-        print("[Cancellation] 'Stop' command detected. Terminating process...")
-        stop_streaming = True  # Signal the streaming loop to stop
-        if current_nlp_proc is not None:
-            try:
-                current_nlp_proc.terminate()
-                time.sleep(0.2)
-                if current_nlp_proc.poll() is None:
-                    current_nlp_proc.kill()
-                    print("[Cancellation] Process forcefully killed.")
-                else:
-                    print("[Cancellation] Process terminated gracefully.")
-            except Exception as e:
-                print("Error terminating process:", e)
-        else:
-            print("[Cancellation] 'Stop' command received; no active process to cancel.")
-        listening_state = "idle"
-        return
 
-    # Check if the transcript starts with the wake word
+    # Check if the transcript starts with the wake word.
     if is_wake_word_detected(transcript):
         words = transcript.split()
-        # Remove the first two words (assumed wake word)
+        # Remove the first two words (assumed wake word) and clean punctuation.
         command = " ".join(words[2:]).strip(" ,.!?")
         if command:
-            # If the immediate command extracted is "stop", handle it above.
-            if is_stop_command(command):
-                print("[Cancellation] 'Stop' command received via wake word. Terminating process...")
-                stop_streaming = True
-                if current_nlp_proc is not None:
-                    try:
-                        current_nlp_proc.terminate()
-                        time.sleep(0.2)
-                        if current_nlp_proc.poll() is None:
-                            current_nlp_proc.kill()
-                            print("[Cancellation] Process forcefully killed.")
-                        else:
-                            print("[Cancellation] Process terminated gracefully.")
-                    except Exception as e:
-                        print("Error terminating process:", e)
-                else:
-                    print("[Cancellation] No active process to cancel.")
+            # Check if the immediate command equals "stop" exactly.
+            if "stop" in command.lower():
+                print("[Cancellation] 'Stop' command received via wake word.")
                 listening_state = "idle"
+                nlp_processor.query_stop()
+                stop_prompt = True
             else:
                 print("[Activation] Wake word detected with immediate command:", command)
                 if listening_state != "processing":
                     listening_state = "processing"
-                    threading.Thread(target=process_command, args=(command,), daemon=True).start()
+                    threading.Thread(target=process_prompt, args=(command,), daemon=True).start()
                 else:
                     print("[Info] Already processing a command.")
         else:
@@ -183,12 +160,16 @@ def process_transcription(transcript: str):
         if transcript:
             print("[Processing] Command received in active mode:", transcript)
             listening_state = "processing"
-            threading.Thread(target=process_command, args=(transcript,), daemon=True).start()
+            threading.Thread(target=process_prompt, args=(transcript,), daemon=True).start()
         return
 
     # If idle and no wake word detected, ignore the input.
     if listening_state == "idle":
         print("[Info] Not activated. Say 'Hey Tuxi' to activate.")
+
+
+
+
 
 # Create a shared queue for audio chunks.
 audio_queue = queue.Queue()
@@ -214,7 +195,7 @@ transcriber = TranscriptionEngine(
     CONFIDENCE_THRESHOLD,
     MIN_WORDS,
     model_name=MODEL_NAME,
-    callback=process_transcription
+    callback=process_command
 )
 
 # Start the transcription engine in a separate thread.
