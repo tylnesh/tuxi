@@ -4,6 +4,7 @@ import threading
 import time
 import queue
 from rapidfuzz import fuzz  # For fuzzy matching
+from config_manager import ConfigManager
 
 # Import audio modules
 from audio.audio_capture import AudioCapture
@@ -15,57 +16,22 @@ from audio.transcriber import TranscriptionEngine
 from nlp.nlp_processor import NLPProcessor
 from nlp.intent_parser import IntentParser
 
+# Initialize the configuration manager
 CONFIG_FILE = "./config/config.yaml"
-DEFAULT_CONFIG = {
-     "api": {
-        "host": "localhost",
-        "port": 11434
-    },
-    "audio": {
-        "sample_rate": 16000,
-        "channels": 1,
-        "buffer_size": 1024,
-        "frame_duration_ms": 30,
-        "pause_timeout": 1.0,
-        "language": "auto",
-        "confidence_threshold": 0.5,
-        "min_words": 3,
-        "output_dir": "transcripts",
-        "vad": {
-            "aggressiveness": 2
-        },
-        "model": {
-            "name": "medium"
-        }
-    },
-    "nlp": {
-        "model": "gemma3:27b"
-    }
-}
+config_manager = ConfigManager(CONFIG_FILE)
 
-# Create default config file if it doesn't exist
-if not os.path.exists(CONFIG_FILE):
-    os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
-    with open(CONFIG_FILE, "w") as f:
-        yaml.dump(DEFAULT_CONFIG, f)
-    print(f"Default configuration created at {CONFIG_FILE}")
-
-# Load configuration
-with open(CONFIG_FILE, "r") as f:
-    config = yaml.safe_load(f)
-
-audio_config = config.get("audio", {})
-SAMPLE_RATE = audio_config.get("sample_rate", 16000)
-CHANNELS = audio_config.get("channels", 1)
-BUFFER_SIZE = audio_config.get("buffer_size", 1024)
-FRAME_DURATION_MS = audio_config.get("frame_duration_ms", 30)
-PAUSE_TIMEOUT = audio_config.get("pause_timeout", 1.0)
-LANGUAGE = audio_config.get("language", "auto")
-CONFIDENCE_THRESHOLD = audio_config.get("confidence_threshold", 0.5)
-MIN_WORDS = audio_config.get("min_words", 3)
-OUTPUT_DIR = audio_config.get("output_dir", "transcripts")
-MODEL_NAME = audio_config.get("model", {}).get("name", "medium")
-VAD_AGGRESSIVENESS = audio_config.get("vad", {}).get("aggressiveness", 2)
+# Access configuration values
+SAMPLE_RATE = config_manager.get("audio.sample_rate", 16000)
+CHANNELS = config_manager.get("audio.channels", 1)
+BUFFER_SIZE = config_manager.get("audio.buffer_size", 1024)
+FRAME_DURATION_MS = config_manager.get("audio.frame_duration_ms", 30)
+PAUSE_TIMEOUT = config_manager.get("audio.pause_timeout", 1.0)
+LANGUAGE = config_manager.get("audio.language", "auto")
+CONFIDENCE_THRESHOLD = config_manager.get("audio.confidence_threshold", 0.5)
+MIN_WORDS = config_manager.get("audio.min_words", 3)
+OUTPUT_DIR = config_manager.get("audio.output_dir", "transcripts")
+MODEL_NAME = config_manager.get("audio.model.name", "medium")
+VAD_AGGRESSIVENESS = config_manager.get("audio.vad.aggressiveness", 2)
 
 # Initialize NLP components
 nlp_processor = NLPProcessor(config_file=CONFIG_FILE)
@@ -166,10 +132,6 @@ def process_command(transcript: str):
     # If idle and no wake word detected, ignore the input.
     if listening_state == "idle":
         print("[Info] Not activated. Say 'Hey Tuxi' to activate.")
-
-
-
-
 
 # Create a shared queue for audio chunks.
 audio_queue = queue.Queue()
