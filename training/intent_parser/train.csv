@@ -1,0 +1,360 @@
+text,label
+"Search for the best Italian restaurants near me",web_search
+"Look up the population of Brazil",web_search
+"Find me the latest soccer news",web_search
+"Find the best coffee shops in Seattle",web_search
+"Search for the tallest buildings in the world",web_search
+"Look up the recipe for lasagna",web_search
+"Find the nearest pharmacy",web_search
+"Search for the latest iPhone reviews",web_search
+"Look up the capital of Australia",web_search
+"Find me a good book to read",web_search
+"Search for the symptoms of the flu",web_search
+"Look up the release date of the next Marvel movie",web_search
+"Find the best deals on laptops",web_search
+"Search for the history of the Roman Empire",web_search
+"Look up the weather in Tokyo",web_search
+"Find the best beaches in California",web_search
+"Search for the top-rated movies of 2025",web_search
+"Look up the population of Canada",web_search
+"Find me the latest basketball scores",web_search
+"Search for the best pizza places in Chicago",web_search
+"Look up the definition of 'serendipity'",web_search
+"Find the nearest car repair shop",web_search
+"Search for the best travel destinations in Europe",web_search
+
+"Open Spotify",open_application
+"Launch Visual Studio Code",open_application
+"Start the Calculator app",open_application
+"Open Microsoft Excel",open_application
+"Launch the Camera app",open_application
+"Start the Weather app",open_application
+"Open my file explorer",open_application
+"Launch the Clock app",open_application
+"Start the Maps application",open_application
+"Open my photo gallery",open_application
+"Launch the Music app",open_application
+"Start the Contacts app",open_application
+"Open the Calendar app",open_application
+"Launch the Notes application",open_application
+"Start the Messages app",open_application
+"Open the YouTube app",open_application
+"Launch the Podcast app",open_application
+"Start the Kindle app",open_application
+"Open the Zoom application",open_application
+"Launch the Slack app",open_application
+"Start the Discord app",open_application
+"Open the Steam application",open_application
+"Launch the Dropbox app",open_application
+
+"Play some classical music",play_music
+"Turn on my rock playlist",play_music
+"I want to listen to Jazz",play_music
+"Play some hip-hop music",play_music
+"Turn on my country playlist",play_music
+"I want to listen to some blues",play_music
+"Play the latest pop hits",play_music
+"Start my workout playlist",play_music
+"Play some relaxing piano music",play_music
+"Turn on my party playlist",play_music
+"I want to listen to some reggae",play_music
+"Play the top 40 hits",play_music
+"Start my road trip playlist",play_music
+"Play some heavy metal music",play_music
+"Turn on my chill vibes playlist",play_music
+"I want to listen to some electronic music",play_music
+"Play the latest indie hits",play_music
+"Start my focus playlist",play_music
+"Play some jazz classics",play_music
+"Turn on my acoustic playlist",play_music
+"I want to listen to some R&B",play_music
+"Play the latest rock hits",play_music
+"Start my meditation playlist",play_music
+
+"Set an alarm for 7 AM",set_alarm
+"Wake me up at 6:30 tomorrow",set_alarm
+"Alarm for 8 in the morning",set_alarm
+"Set an alarm for 9 PM",set_alarm
+"Wake me up at 5:45 tomorrow morning",set_alarm
+"Alarm for 6:15 AM",set_alarm
+"Set an alarm for 20 minutes from now",set_alarm
+"Wake me up in 3 hours",set_alarm
+"Set an alarm for 11:30 PM tonight",set_alarm
+"Wake me up at sunrise",set_alarm
+"Alarm for 10:45 AM",set_alarm
+"Set an alarm for 2:30 PM",set_alarm
+"Wake me up at 4:15 tomorrow morning",set_alarm
+"Set an alarm for 8:00 PM",set_alarm
+"Wake me up in 45 minutes",set_alarm
+"Alarm for 7:20 AM",set_alarm
+"Set an alarm for 6:00 PM",set_alarm
+"Wake me up at 3:30 AM",set_alarm
+"Set an alarm for 1 hour from now",set_alarm
+"Wake me up at 7:45 tomorrow morning",set_alarm
+"Alarm for 5:00 PM",set_alarm
+"Set an alarm for 10:00 AM",set_alarm
+"Wake me up at 6:30 AM",set_alarm
+
+"Text John and say I'm running late",send_message
+"Send a message to Katie about dinner",send_message
+"Draft an SMS to my mother asking how she is",send_message
+"Send a message to Alex saying I'll be late",send_message
+"Text Sarah and ask if she's free for lunch",send_message
+"Draft an SMS to my dad asking about the weekend",send_message
+"Send a message to my boss about the meeting",send_message
+"Text Emily and say happy birthday",send_message
+"Send a message to Mike asking for the address",send_message
+"Draft an SMS to my sister about the party",send_message
+"Text my friend and ask if they want to hang out",send_message
+"Send a message to my coworker about the deadline",send_message
+"Text my mom and say I'll call her later",send_message
+"Send a message to John asking for his opinion",send_message
+"Draft an SMS to my partner about dinner plans",send_message
+"Text my neighbor and ask if they need help",send_message
+"Send a message to my teacher about the assignment",send_message
+"Text my cousin and say congratulations",send_message
+"Send a message to my friend about the concert",send_message
+"Draft an SMS to my boss about the presentation",send_message
+"Text my roommate and ask if they need anything",send_message
+"Send a message to my client about the project",send_message
+"Text my brother and say good luck",send_message
+
+"Add a meeting with Bob to my calendar for Tuesday",calendar_event
+"Schedule an event for tomorrow at 2 PM",calendar_event
+"Put a reminder in my calendar for my dentist appointment on June 5",calendar_event
+"Add a meeting with Sarah to my calendar for Friday",calendar_event
+"Schedule a call with the client for 3 PM tomorrow",calendar_event
+"Put a reminder in my calendar for my gym session on Monday",calendar_event
+"Add a lunch meeting with Alex to my calendar for next Wednesday",calendar_event
+"Schedule a team meeting for 10 AM on Thursday",calendar_event
+"Add a dentist appointment to my calendar for June 15",calendar_event
+"Schedule a conference call for 4 PM today",calendar_event
+"Put a reminder in my calendar for my friend's wedding on July 20",calendar_event
+"Add a doctor's appointment to my calendar for next Tuesday",calendar_event
+"Schedule a project deadline for the end of the month",calendar_event
+"Add a birthday reminder for my mom on May 10",calendar_event
+"Schedule a brainstorming session for 2 PM on Friday",calendar_event
+"Put a reminder in my calendar for my car service on Saturday",calendar_event
+"Add a meeting with the marketing team to my calendar for 11 AM tomorrow",calendar_event
+"Schedule a webinar for 6 PM on Sunday",calendar_event
+"Add a reminder for my flight on December 1",calendar_event
+"Schedule a coffee chat with my mentor for next Monday",calendar_event
+"Put a reminder in my calendar for my yoga class on Wednesday",calendar_event
+"Add a team lunch to my calendar for noon on Friday",calendar_event
+"Schedule a follow-up meeting for 3 PM next Thursday",calendar_event
+
+"What's the weather like today?",weather_query
+"Will it rain tomorrow?",weather_query
+"Is it going to be sunny next week?",weather_query
+"What's the temperature in New York right now?",weather_query
+"Is it snowing in Chicago?",weather_query
+"Will it be windy tomorrow?",weather_query
+"What's the forecast for the weekend?",weather_query
+"Is there a chance of rain today?",weather_query
+"What's the humidity level in Los Angeles?",weather_query
+"Will it be hot next week?",weather_query
+"What's the weather like in Paris?",weather_query
+"Is it sunny in San Francisco?",weather_query
+"What's the UV index today?",weather_query
+"Will there be thunderstorms tomorrow?",weather_query
+"What's the high temperature for today?",weather_query
+"Is it going to be cold tonight?",weather_query
+"What's the weather like in Tokyo this week?",weather_query
+"Will it be cloudy tomorrow?",weather_query
+"What's the air quality index in Beijing?",weather_query
+"Is there a heatwave expected this weekend?",weather_query
+"What's the wind speed in Miami?",weather_query
+"Will it snow next week?",weather_query
+"What's the weather like in London right now?",weather_query
+
+"What's the latest news?",news_update
+"Any breaking news updates right now?",news_update
+"Give me the top headlines",news_update
+"What's happening in the world today?",news_update
+"Show me the latest sports news",news_update
+"What's the top story right now?",news_update
+"Any updates on the stock market?",news_update
+"What's the latest in tech news?",news_update
+"Show me the headlines for today",news_update
+"What's the latest political news?",news_update
+"Any breaking news about the economy?",news_update
+"What's trending in entertainment news?",news_update
+"Show me the latest health news",news_update
+"What's the latest on the elections?",news_update
+"Any updates on the weather-related disasters?",news_update
+"What's the latest in science news?",news_update
+"Show me the top stories in business",news_update
+"What's the latest in world news?",news_update
+"Any updates on the war?",news_update
+"What's the latest in celebrity news?",news_update
+"Show me the latest news about space exploration",news_update
+"What's the latest in environmental news?",news_update
+"Any updates on the pandemic?",news_update
+
+"Remind me to buy groceries after work",reminder
+"Remind me in 30 minutes to check on the laundry",reminder
+"Set a reminder for my doctor's appointment",reminder
+"Remind me to call my mom at 5 PM",reminder
+"Set a reminder to water the plants tomorrow morning",reminder
+"Remind me to pick up the kids from school at 3 PM",reminder
+"Set a reminder to take my medication at 8 AM",reminder
+"Remind me to submit the report by noon",reminder
+"Set a reminder to pay the electricity bill",reminder
+"Remind me to check the mail after work",reminder
+"Set a reminder to buy a gift for Sarah's birthday",reminder
+"Remind me to charge my phone before bed",reminder
+"Set a reminder to pack my bags for the trip",reminder
+"Remind me to call the plumber tomorrow",reminder
+"Set a reminder to clean the house this weekend",reminder
+"Remind me to book a table for dinner tonight",reminder
+"Set a reminder to send the email at 10 AM",reminder
+"Remind me to take out the trash on Monday",reminder
+"Set a reminder to attend the webinar at 6 PM",reminder
+"Remind me to check the stock prices in the morning",reminder
+"Set a reminder to prepare for the presentation",reminder
+"Remind me to pick up groceries on the way home",reminder
+"Set a reminder to call the bank tomorrow afternoon",reminder
+
+"Translate 'good morning' to Spanish",translation
+"How do you say 'thank you' in French?",translation
+"I need the German translation of 'Where is the train station?'",translation
+"Translate 'hello' to Japanese",translation
+"How do you say 'goodbye' in Italian?",translation
+"I need the French translation of 'Where is the bathroom?'",translation
+"Translate 'thank you' to German",translation
+"How do you say 'good night' in Spanish?",translation
+"I need the Russian translation of 'How are you?'",translation
+"Translate 'I love you' to Portuguese",translation
+"How do you say 'excuse me' in Chinese?",translation
+"I need the Arabic translation of 'What time is it?'",translation
+"Translate 'good morning' to Korean",translation
+"How do you say 'please' in Dutch?",translation
+"I need the Hindi translation of 'Where is the train station?'",translation
+"Translate 'happy birthday' to Greek",translation
+"How do you say 'congratulations' in Swedish?",translation
+"I need the Turkish translation of 'Can you help me?'",translation
+"Translate 'good afternoon' to Thai",translation
+"How do you say 'sorry' in Polish?",translation
+"I need the Hebrew translation of 'What is your name?'",translation
+"Translate 'good luck' to Vietnamese",translation
+"How do you say 'cheers' in Finnish?",translation
+
+"Convert 5 kilometers to miles",unit_conversion
+"How many cups are in a liter?",unit_conversion
+"Change 70 degrees Fahrenheit to Celsius",unit_conversion
+"Convert 10 miles to kilometers",unit_conversion
+"How many ounces are in a pound?",unit_conversion
+"Change 100 degrees Celsius to Fahrenheit",unit_conversion
+"Convert 3 liters to gallons",unit_conversion
+"How many grams are in a kilogram?",unit_conversion
+"Change 50 inches to centimeters",unit_conversion
+"Convert 2.5 meters to feet",unit_conversion
+"How many teaspoons are in a tablespoon?",unit_conversion
+"Change 200 milliliters to cups",unit_conversion
+"Convert 5 pounds to kilograms",unit_conversion
+"How many yards are in a mile?",unit_conversion
+"Change 30 degrees Celsius to Kelvin",unit_conversion
+"Convert 7 gallons to liters",unit_conversion
+"How many millimeters are in a meter?",unit_conversion
+"Change 15 kilometers to miles",unit_conversion
+"Convert 8 ounces to grams",unit_conversion
+"How many cups are in a quart?",unit_conversion
+"Change 25 degrees Fahrenheit to Celsius",unit_conversion
+"Convert 12 feet to meters",unit_conversion
+"How many seconds are in an hour?",unit_conversion
+
+"What's 25 plus 47?",calculator
+"Calculate 14 times 12",calculator
+"What's the square root of 144?",calculator
+"What's 100 minus 45?",calculator
+"Calculate 56 divided by 8",calculator
+"What's 12 squared?",calculator
+"Find the cube root of 27",calculator
+"What's 15% of 200?",calculator
+"Calculate 3 to the power of 4",calculator
+"What's 144 divided by 12?",calculator
+"Find the factorial of 5",calculator
+"What's 7 times 8?",calculator
+"Calculate the area of a circle with radius 5",calculator
+"What's 81 divided by 9?",calculator
+"Find the greatest common divisor of 24 and 36",calculator
+"What's 2 plus 2 times 3?",calculator
+"Calculate the perimeter of a rectangle with sides 10 and 15",calculator
+"What's the square of 13?",calculator
+"Find the least common multiple of 6 and 8",calculator
+"What's 100 divided by 25?",calculator
+"Calculate the volume of a cube with side length 4",calculator
+"What's 9 times 11?",calculator
+"Find the square root of 256",calculator
+
+"Tell me a funny joke",joke
+"Make me laugh",joke
+"I need a good joke",joke
+"Tell me a dad joke",joke
+"Do you know any puns?",joke
+"Make me laugh with a short joke",joke
+"What's a good knock-knock joke?",joke
+"Tell me a joke about programmers",joke
+"Do you have any animal jokes?",joke
+"What's a funny one-liner?",joke
+"Tell me a joke about math",joke
+"Do you know any science jokes?",joke
+"What's a good pun about food?",joke
+"Tell me a joke about computers",joke
+"Do you know any jokes about teachers?",joke
+"What's a funny joke about sports?",joke
+"Tell me a joke about space",joke
+"Do you know any jokes about music?",joke
+"What's a good pun about books?",joke
+"Tell me a joke about robots",joke
+"Do you know any jokes about history?",joke
+"What's a funny joke about animals?",joke
+"Tell me a joke about coffee",joke
+
+"Tell me a random fact",fact
+"Give me an interesting fact about space",fact
+"I want to learn something new",fact
+"Tell me a fact about the ocean",fact
+"What's an interesting fact about the human body?",fact
+"Give me a random historical fact",fact
+"Tell me a fact about space exploration",fact
+"What's a fun fact about animals?",fact
+"Give me an interesting fact about technology",fact
+"Tell me a fact about the solar system",fact
+"What's a surprising fact about plants?",fact
+"Give me a random fact about physics",fact
+"Tell me a fact about famous landmarks",fact
+"What's an interesting fact about languages?",fact
+"Give me a fun fact about music",fact
+"Tell me a fact about ancient civilizations",fact
+"What's a surprising fact about the brain?",fact
+"Give me a random fact about art",fact
+"Tell me a fact about the weather",fact
+"What's an interesting fact about sports?",fact
+"Give me a fun fact about movies",fact
+"Tell me a fact about famous inventors",fact
+"What's a surprising fact about history?",fact
+
+"Banana phone beep beep",unknown
+"Ishly bungy bungy",unknown
+"Nonsense query",unknown
+"Blah blah blah",unknown
+"Random gibberish text",unknown
+"Zippity zappity zoo",unknown
+"Unintelligible nonsense",unknown
+"Blargle flargle snargle",unknown
+"Complete randomness",unknown
+"Yabba dabba doo",unknown
+"Whoopity scoopity",unknown
+"Unrecognizable input",unknown
+"Skiddly bop bop",unknown
+"Unclear and confusing",unknown
+"Jibber jabber",unknown
+"Totally meaningless",unknown
+"Flim flam floo",unknown
+"Unstructured text",unknown
+"Zig zag zoom",unknown
+"Uninterpretable input",unknown
+"Blip blop blorp",unknown
+"Unusual and strange",unknown
+"Completely nonsensical",unknown

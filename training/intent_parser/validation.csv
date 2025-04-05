@@ -1,0 +1,16 @@
+text,label
+"Look up the population of Brazil",web_search
+"Launch Visual Studio Code",open_application
+"Turn on my rock playlist",play_music
+"Wake me up at 6:30 tomorrow",set_alarm
+"Send a message to Katie about dinner",send_message
+"Schedule an event for tomorrow at 2 PM",calendar_event
+"Will it rain tomorrow?",weather_query
+"Any breaking news updates right now?",news_update
+"Remind me in 30 minutes to check on the laundry",reminder
+"How do you say 'thank you' in French?",translation
+"How many cups are in a liter?",unit_conversion
+"Calculate 14 times 12",calculator
+"Make me laugh",joke
+"Give me an interesting fact about space",fact
+"Ishly bungy bungy",unknown
