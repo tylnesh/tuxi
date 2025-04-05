@@ -1,0 +1,16 @@
+text,label
+"Find me the latest soccer news",web_search
+"Start the Calculator app",open_application
+"I want to listen to Jazz",play_music
+"Alarm for 8 in the morning",set_alarm
+"Draft an SMS to my mother asking how she is",send_message
+"Put a reminder in my calendar for my dentist appointment on June 5",calendar_event
+"Is it going to be sunny next week?",weather_query
+"Give me the top headlines",news_update
+"Set a reminder for my doctor's appointment",reminder
+"I need the German translation of 'Where is the train station?'",translation
+"Change 70 degrees Fahrenheit to Celsius",unit_conversion
+"What's the square root of 144?",calculator
+"I need a good joke",joke
+"I want to learn something new",fact
+"Nonsense query",unknown
