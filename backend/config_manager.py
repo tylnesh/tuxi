@@ -32,9 +32,9 @@ class ConfigManager:
     def __init__(self, config_file: str):
         self.config_file = config_file
         self.config = None
-        self._load_config()
+        self.load_config()
 
-    def _load_config(self):
+    def load_config(self):
         """Load the configuration from the file or create a default one."""
         if not os.path.exists(self.config_file):
             os.makedirs(os.path.dirname(self.config_file), exist_ok=True)
