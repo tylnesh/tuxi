@@ -4,6 +4,7 @@ import yaml
 import os
 import json
 import re
+from backend.config_manager import ConfigManager
 
 def clean_text(text: str) -> str:
     # Normalize whitespace
@@ -17,20 +18,13 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 class NLPProcessor:
-    def __init__(self, config_file="config.yaml"):
-        self.config = self.load_config(config_file)
+    def __init__(self, config_file: str = "config/config.yaml"):
+        self.config_manager = ConfigManager(config_file)
+        self.config = self.config_manager.config  # Load the configuration
         self.model = self.config.get("nlp", {}).get("model", "gemma3:27b")
         self.api_host = self.config.get("api", {}).get("host", "localhost")
         self.api_port = self.config.get("api", {}).get("port", 11434)
-        
-
-    def load_config(self, path: str) -> dict:
-        if not os.path.exists(path):
-            raise FileNotFoundError(f"Configuration file {path} not found.")
-        with open(path, "r") as f:
-            config = yaml.safe_load(f)
-        return config
-
+  
     def query_stream(self, prompt: str, stream_callback) -> str:
         full_response = ""
         url = f"http://{self.api_host}:{self.api_port}/api/generate"

@@ -22,3 +22,22 @@
 "nlp": {
         "model": "gemma3:27b"
     }
+"intent" : {
+        "candidate_intents" : [
+                "web_search", 
+                "open_application", 
+                "play_music", 
+                "set_alarm",
+                "send_message",
+                "calendar_event",
+                "weather_query",
+                "news_update",
+                "reminder",
+                "translation",
+                "unit_conversion",
+                "calculator",
+                "joke",
+                "fact",
+                "unknown"
+            ]
+    }
