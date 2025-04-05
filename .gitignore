@@ -10,3 +10,4 @@ backend/__pycache__/text_chat.cpython-312.pyc
 backend/__pycache__/voice_chat.cpython-312.pyc
 backend/nlp/__pycache__/intent_parser.cpython-312.pyc
 backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
+backend/nlp/intent_model/model.safetensors
