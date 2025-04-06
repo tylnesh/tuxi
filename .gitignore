@@ -13,3 +13,4 @@ backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
 backend/nlp/intent_model/model.safetensors
 backend/nlp/intent_parser/model.safetensors
 backend/nlp/intent_parser/config.json
+backend/config/nextcloud.yaml

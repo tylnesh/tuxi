@@ -10,7 +10,7 @@ class IntentParser:
         # Path to your locally fine-tuned model
         # If "intent_model" isn't specified in config, default to "intent_model" folder.
         # self.model_path = self.config.get("intent", {}).get("model", "intent_model")
-        self.model_path = "backend/nlp/intent_model"
+        self.model_path = "backend/nlp/intent_parser"
 
         # Any labels you still want to keep track of from the config
         self.candidate_intents = self.config.get("intent", {}).get("candidate_intents", [

@@ -6,3 +6,5 @@ torch
 PyYAML
 rapidfuzz
 transformers
+caldav
+ics

@@ -1,5 +1,6 @@
 from backend.nlp.nlp_processor import NLPProcessor
 from backend.nlp.intent_parser import IntentParser
+from backend.agents.calendar.calendar_agent import CalendarAgent
 
 
 class BaseChat:
@@ -11,7 +12,28 @@ class BaseChat:
     def process_prompt(self, command: str):
         print(f"\n[Processing]: {command}")
         print("[Available Intents]:", self.intent_parser.get_all_intents())
+        intent = self.intent_parser.parse_intent(command)
+        print("\n[Detected Intent]:", intent)
 
+        self.call_agent(intent, command)
+
+    
+    def call_agent(self, intent:str, prompt:str):
+        """
+        Call the agent with the given intent and prompt.
+        """
+        match intent:
+            case "calendar_event":
+                CalendarAgent.process_prompt(prompt)
+            case _:
+                print(f"[Warning] Unimplemented intent: {intent}, switching to general LLM.")
+                self.general_llm(prompt)
+                
+    
+    def general_llm(self, prompt: str):
+        """
+        Call the general LLM with the given prompt.
+        """
         chunks = []
 
         def stream_callback(chunk: str):
@@ -19,8 +41,6 @@ class BaseChat:
             chunks.append(chunk)
 
         try:
-            intent = self.intent_parser.parse_intent(command)
-            print("\n[Detected Intent]:", intent)
             self.nlp_processor.query_stream(command, stream_callback)
 
             response = " ".join(chunks).strip()
@@ -32,3 +52,4 @@ class BaseChat:
             print("-" * 40)
         except Exception as e:
             print(f"\n[Error]: {e}")
+    
