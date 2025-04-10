@@ -18,13 +18,15 @@ class BaseChat:
         self.call_agent(intent, command)
 
     
-    def call_agent(self, intent:str, prompt:str):
+    def call_agent(self, intent: str, prompt: str):
         """
         Call the agent with the given intent and prompt.
         """
         match intent:
             case "calendar_event":
-                CalendarAgent.process_prompt(prompt)
+                # Create an instance of CalendarAgent
+                calendar_agent = CalendarAgent()
+                calendar_agent.create_event_from_prompt(prompt)
             case _:
                 print(f"[Warning] Unimplemented intent: {intent}, switching to general LLM.")
                 self.general_llm(prompt)
@@ -52,4 +54,3 @@ class BaseChat:
             print("-" * 40)
         except Exception as e:
             print(f"\n[Error]: {e}")
-    

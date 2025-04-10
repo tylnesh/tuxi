@@ -1,16 +1,36 @@
 import yaml
 import json
+import re
 from transformers import pipeline
 from datetime import datetime, timedelta
 from dateutil.parser import parse as date_parse
 from ics import Calendar, Event
 import caldav
 
+# Optional: install jsonschema (pip install jsonschema) if not already installed
+try:
+    import jsonschema
+    SCHEMA_AVAILABLE = True
+except ImportError:
+    SCHEMA_AVAILABLE = False
+
 class CalendarAgent:
+    # Define a JSON schema for validation
+    # (We require these four keys; start_time must be a string, etc.)
+    schema = {
+        "type": "object",
+        "properties": {
+            "title": {"type": "string"},
+            "start_time": {"type": "string"},
+            "duration_minutes": {"type": "integer"},
+            "description": {"type": "string"}
+        },
+        "required": ["title", "start_time", "duration_minutes", "description"]
+    }
+
     def __init__(self):
         self.__load_config__()
         
-    
     def __load_config__(self, config_file: str ="./backend/config/nextcloud.yaml"):
         """Load the configuration from the file or create a default one."""
         with open(config_file, 'r') as file:
@@ -19,6 +39,7 @@ class CalendarAgent:
         self.nextcloud_url = nc_config.get("url")
         self.username = nc_config.get("username")
         self.api_key = nc_config.get("api_key")
+        self.calendar_name = nc_config.get("calendar_name")
         
         # self.llm = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")
         self.llm = pipeline(
@@ -36,14 +57,17 @@ class CalendarAgent:
         # Compose the LLM messages with instructions
         messages = [
             {
-            "role": "system",
-            "content": (
-                "You are an assistant that extracts event details from natural language prompts. "
-                "Your output must be a valid JSON object with the following keys: "
-                "'title' (string), 'start_time' (ISO 8601 datetime string), "
-                "'duration_minutes' (integer), and 'description' (string). "
-                "Do not include any extra text, notes or explanations."
-            ),
+                "role": "system",
+                "content": (
+                    "Today is " + datetime.now().strftime("%Y-%m-%d") + ". "
+                    "Time is " + datetime.now().strftime("%H:%M") + ". "
+                    "You are a calendar assistant. "
+                    "You are an assistant that extracts event details from natural language prompts. "
+                    "Your output must be a valid JSON object with the following keys: "
+                    "'title' (string), 'start_time' (ISO 8601 datetime string), "
+                    "'duration_minutes' (integer), and 'description' (string). "
+                    "Do not include any extra text, notes or explanations."
+                ),
             },
             {"role": "user", "content": prompt},
         ]
@@ -51,16 +75,30 @@ class CalendarAgent:
         response = self.llm(messages, max_new_tokens=128, do_sample=True)
         print()
  
+        # Existing code that tries to access the generated_text
         generated_text = response[0]["generated_text"][-1]["content"]
         print("LLM Response:", generated_text)
         
-        
+        # --- NEW (Regex extraction) ---
+        # If there's a code block fence, remove it
         if "```" in generated_text:
             generated_text = generated_text.strip().split("```")[1] 
-    
-    
+
+        # Use regex to find the first { ... } block
+        json_match = re.search(r"(\{.*\})", generated_text, re.DOTALL)
+        if json_match:
+            extracted_json = json_match.group(1)
+        else:
+            # If we can't find braces, fall back to the entire string
+            extracted_json = generated_text
+        
         try:
-            details = json.loads(generated_text)
+            details = json.loads(extracted_json)
+
+            # --- NEW (Schema validation) ---
+            if SCHEMA_AVAILABLE:
+                jsonschema.validate(details, self.schema)
+            
             # Convert start_time from ISO8601 to a datetime object.
             details["start_time"] = date_parse(details["start_time"])
             # Convert duration_minutes to a timedelta and rename the key to 'duration'.
@@ -92,10 +130,14 @@ class CalendarAgent:
         client = caldav.DAVClient(url=self.nextcloud_url, username=self.username, password=self.api_key)
         principal = client.principal()
         calendars = principal.calendars()
+        for cal in calendars:
+            print(f"Calendar: {cal.name}")
         if not calendars:
             raise Exception("No calendars found on the Nextcloud account.")
-        # Select the first available calendar.
-        calendar = calendars[0]
+        # Select the desired calendar by name.
+        calendar = next((cal for cal in calendars if cal.name == self.calendar_name), None)
+        if not calendar:
+            raise Exception(f"Calendar '{self.calendar_name}' not found.")
         calendar.add_event(ics_content)
         print("Event added successfully!")
 
