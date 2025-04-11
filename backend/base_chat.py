@@ -43,7 +43,7 @@ class BaseChat:
             chunks.append(chunk)
 
         try:
-            self.nlp_processor.query_stream(command, stream_callback)
+            self.nlp_processor.query_stream(prompt, stream_callback)
 
             response = " ".join(chunks).strip()
             if not response:

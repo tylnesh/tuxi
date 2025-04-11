@@ -7,7 +7,10 @@ from dateutil.parser import parse as date_parse
 from ics import Calendar, Event
 import caldav
 
-# Optional: install jsonschema (pip install jsonschema) if not already installed
+#TODO: Add an option to select which calendar to use and an interactive mode for the user to fill in the details
+# when the LLM fails to parse the prompt correctly, or the prompt is too vague or incomplete.
+
+
 try:
     import jsonschema
     SCHEMA_AVAILABLE = True
