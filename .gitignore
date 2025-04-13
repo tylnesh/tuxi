@@ -3,6 +3,8 @@ transcripts
 backend/audio/__pycache__
 backend/__pycache__/config_manager.cpython-312.pyc
 training/intent_parser/distilbert-intent-model
+training/intent_parser/distilbert-intent-model_v2
+training/intent_parser/checkpoints
 transcripts/segment_20250406_004328.wav
 backend/__pycache__/base_chat.cpython-312.pyc
 backend/__pycache__/main.cpython-312.pyc
@@ -13,3 +15,7 @@ backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
 backend/nlp/intent_model/model.safetensors
 backend/nlp/intent_parser/model.safetensors
 backend/nlp/intent_parser/config.json
+backend/config/nextcloud.yaml
+backend/nlp/intent_parser/v1/*
+backend/nlp/intent_parser/v2/*
+.gitignore

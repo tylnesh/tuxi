@@ -6,3 +6,9 @@ torch
 PyYAML
 rapidfuzz
 transformers
+caldav
+ics
+jsonschema
+blobfile
+protobuf
+SentencePiece

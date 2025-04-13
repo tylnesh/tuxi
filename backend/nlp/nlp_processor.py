@@ -1,7 +1,5 @@
 # nlp/nlp_processor.py
 import requests
-import yaml
-import os
 import json
 import re
 from backend.config_manager import ConfigManager
