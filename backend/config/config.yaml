@@ -15,7 +15,7 @@ audio:
   vad:
     aggressiveness: 3
   model:
-    name: medium
+    name: large
 
 nlp:
   model: gemma3:27b

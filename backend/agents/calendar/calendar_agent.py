@@ -10,7 +10,6 @@ import caldav
 #TODO: Add an option to select which calendar to use and an interactive mode for the user to fill in the details
 # when the LLM fails to parse the prompt correctly, or the prompt is too vague or incomplete.
 
-
 try:
     import jsonschema
     SCHEMA_AVAILABLE = True
@@ -19,7 +18,6 @@ except ImportError:
 
 class CalendarAgent:
     # Define a JSON schema for validation
-    # (We require these four keys; start_time must be a string, etc.)
     schema = {
         "type": "object",
         "properties": {
@@ -52,7 +50,6 @@ class CalendarAgent:
             device_map="auto",
         )
         
-    # todo: somehow make the llm use current date and time and get rid of additional garbage responses
     def parse_prompt(self, prompt: str):
         """
         Parse the prompt to extract event details.
@@ -82,29 +79,22 @@ class CalendarAgent:
         generated_text = response[0]["generated_text"][-1]["content"]
         print("LLM Response:", generated_text)
         
-        # --- NEW (Regex extraction) ---
-        # If there's a code block fence, remove it
         if "```" in generated_text:
             generated_text = generated_text.strip().split("```")[1] 
 
-        # Use regex to find the first { ... } block
         json_match = re.search(r"(\{.*\})", generated_text, re.DOTALL)
         if json_match:
             extracted_json = json_match.group(1)
         else:
-            # If we can't find braces, fall back to the entire string
             extracted_json = generated_text
         
         try:
             details = json.loads(extracted_json)
 
-            # --- NEW (Schema validation) ---
             if SCHEMA_AVAILABLE:
                 jsonschema.validate(details, self.schema)
             
-            # Convert start_time from ISO8601 to a datetime object.
             details["start_time"] = date_parse(details["start_time"])
-            # Convert duration_minutes to a timedelta and rename the key to 'duration'.
             details["duration"] = timedelta(minutes=int(details["duration_minutes"]))
             del details["duration_minutes"]
             return details

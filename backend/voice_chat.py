@@ -9,6 +9,8 @@ from rapidfuzz import fuzz
 import queue
 import time
 
+# TODO: Replace the wakeword detection with something more light-weight so it can run constantly. 
+# Maybe https://github.com/dscripka/openWakeWord 
 
 class VoiceChat(BaseChat):
     listening_state = "idle"
