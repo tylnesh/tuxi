@@ -80,3 +80,16 @@ training/intent_parser/distilbert-intent-model_v2/checkpoint-998/tokenizer.json
 training/intent_parser/distilbert-intent-model_v2/checkpoint-998/trainer_state.json
 training/intent_parser/distilbert-intent-model_v2/checkpoint-998/training_args.bin
 training/intent_parser/distilbert-intent-model_v2/checkpoint-998/vocab.txt
+backend/nlp/__pycache__
+backend/core/__pycache__/config_manager.cpython-312.pyc
+backend/core/audio/__pycache__/audio_capture.cpython-312.pyc
+backend/core/audio/__pycache__/file_handler.cpython-312.pyc
+backend/core/audio/__pycache__/transcriber.cpython-312.pyc
+backend/core/audio/__pycache__/vad.cpython-312.pyc
+backend/core/nlp/__pycache__/intent_parser.cpython-312.pyc
+backend/core/nlp/__pycache__/nlp_processor.cpython-312.pyc
+backend/core/rag/__pycache__/local_rag.cpython-312.pyc
+backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
+backend/nlp/__pycache__/intent_parser.cpython-312.pyc
+backend/nlp/__pycache__/intent_parser.cpython-312.pyc
+backend/nlp/__pycache__/nlp_processor.cpython-312.pyc

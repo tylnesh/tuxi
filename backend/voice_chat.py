@@ -1,6 +1,6 @@
 import threading
 from backend.base_chat import BaseChat
-from backend.config_manager import ConfigManager
+from backend.core.config_manager import ConfigManager
 from backend.audio.audio_capture import AudioCapture
 from backend.audio.vad import VoiceActivityDetector
 from backend.audio.file_handler import FileHandler
