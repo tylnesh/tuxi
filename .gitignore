@@ -93,3 +93,17 @@ backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
 backend/nlp/__pycache__/intent_parser.cpython-312.pyc
 backend/nlp/__pycache__/intent_parser.cpython-312.pyc
 backend/nlp/__pycache__/nlp_processor.cpython-312.pyc
+__pycache__/web_interface.cpython-312.pyc
+backend/core/nlp/intent_parser/v1/config.json
+backend/core/nlp/intent_parser/v1/model.safetensors
+backend/core/nlp/intent_parser/v2/config.json
+backend/core/nlp/intent_parser/v2/model.safetensors
+backend/core/nlp/intent_parser/v2/optimizer.pt
+backend/core/nlp/intent_parser/v2/rng_state.pth
+backend/core/nlp/intent_parser/v2/scheduler.pt
+backend/core/nlp/intent_parser/v2/special_tokens_map.json
+backend/core/nlp/intent_parser/v2/tokenizer_config.json
+backend/core/nlp/intent_parser/v2/tokenizer.json
+backend/core/nlp/intent_parser/v2/trainer_state.json
+backend/core/nlp/intent_parser/v2/training_args.bin
+backend/core/nlp/intent_parser/v2/vocab.txt
