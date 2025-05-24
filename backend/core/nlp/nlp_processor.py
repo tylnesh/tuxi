@@ -2,7 +2,7 @@
 import requests
 import json
 import re
-from backend.config_manager import ConfigManager
+from backend.core.config_manager import ConfigManager
 
 def clean_text(text: str) -> str:
     # Normalize whitespace

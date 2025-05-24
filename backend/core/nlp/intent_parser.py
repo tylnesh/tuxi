@@ -1,5 +1,5 @@
 from transformers import pipeline
-from backend.config_manager import ConfigManager
+from backend.core.config_manager import ConfigManager
 
 class IntentParser:
     def __init__(self, config_file: str = "config/config.yaml"):
@@ -10,7 +10,7 @@ class IntentParser:
         # Path to your locally fine-tuned model
         # If "intent_model" isn't specified in config, default to "intent_model" folder.
         # self.model_path = self.config.get("intent", {}).get("model", "intent_model")
-        self.model_path = "backend/nlp/intent_parser/v2"
+        self.model_path = "backend/core/nlp/intent_parser/v2"
 
         # Any labels you still want to keep track of from the config
         self.candidate_intents = self.config.get("intent", {}).get("candidate_intents", [

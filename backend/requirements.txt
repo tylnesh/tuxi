@@ -12,3 +12,12 @@ jsonschema
 blobfile
 protobuf
 SentencePiece
+chromadb
+sentence_transformers
+PyMuPDF
+python-docx
+ebooklib
+bs4
+langchain
+watchdog
+gradio

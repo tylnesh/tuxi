@@ -1,5 +1,5 @@
-from backend.nlp.nlp_processor import NLPProcessor
-from backend.nlp.intent_parser import IntentParser
+from backend.core.nlp.nlp_processor import NLPProcessor
+from backend.core.nlp.intent_parser import IntentParser
 from backend.agents.calendar.calendar_agent import CalendarAgent
 
 
